@@ -35,7 +35,7 @@ public class UploadResource {
 
 	// Path é uma Interface em Java que representa o caminho de um arquivo ou
 	// diretório no sistema de arquivos
-	private final Path fileStorageLocation = null;
+	private final Path fileStorageLocation;
 
 	// Vamos começar a programar aqui :)
 }
