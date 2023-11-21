@@ -37,5 +37,32 @@ public class UploadResource {
 	// diretório no sistema de arquivos
 	private final Path fileStorageLocation;
 
-	// Vamos começar a programar aqui :)
+	public UploadResource(ArquivoConfig arquivoConfig) {
+		/*
+		 * Constrói o caminho absoluto normalizado para o diretório de armazenamento de arquivos,
+		 * com base na configuração fornecida (arquivoConfig.getUploadDir()).
+		 * O caminho absoluto é obtido a partir do caminho relativo fornecido pela configuração,
+		 * e o método `normalize()` ajuda a garantir uma representação padronizada do caminho.
+		 */
+		this.fileStorageLocation = Paths.get(arquivoConfig.getUploadDir()).toAbsolutePath().normalize();
+	}
+
+	@PostMapping
+	public boolean uploadFile(@RequestParam("file") MultipartFile file) {
+		boolean upload = salvarArquivo(file);
+
+		if (upload) {
+			return lerArquivo(file);
+		} else {
+			return false;
+		}
+	}
+
+	private boolean salvarArquivo(MultipartFile file) {
+		return true;
+	}
+
+	private boolean lerArquivo(MultipartFile file) {
+		return true;
+	}
 }
