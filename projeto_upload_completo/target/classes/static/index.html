@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Upload de Arquivo</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+	<div class="container mt-5">
+		<form id="uploadForm">
+			<div class="custom-file">
+				<input type="file" class="custom-file-input" id="fileInput" accept=".xml" required>
+				<label class="custom-file-label" for="fileInput">Escolha um arquivo XML</label>
+			</div>
+			<button type="button" class="btn btn-primary mt-3" onclick="uploadFile()">Enviar</button>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Inclua o SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		function uploadFile() {
+			var fileInput = document.getElementById('fileInput');
+			var file = fileInput.files[0];
+
+
+			if (file) {
+				var formData = new FormData();
+				formData.append('file', file);
+
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'http://localhost:8080/upload', true);
+
+				console.log(xhr);
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							Swal.fire({
+								icon: 'success',
+								title: 'Arquivo importado com sucesso.',
+								text: '',
+							});
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Falha ao importar o arquivo.',
+								text: '',
+							});
+						}
+					}
+				};
+
+				xhr.send(formData);
+			} else {
+				alert('Selecione um arquivo antes de enviar.');
+			}
+		}
+	</script>
+</body>
+
+</html>
