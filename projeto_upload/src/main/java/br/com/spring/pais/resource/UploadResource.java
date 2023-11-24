@@ -49,6 +49,10 @@ public class UploadResource {
 
 	@PostMapping
 	public boolean uploadFile(@RequestParam("file") MultipartFile file) {
+		/*
+		 * @RequestParam("file") indica que o método espera receber um parâmetro chamado file
+		 * MultipartFile é um tipo de variável utilizado pelo spring para lidar com o upload de arquivos
+		 */
 		boolean upload = salvarArquivo(file);
 
 		if (upload) {
@@ -59,10 +63,81 @@ public class UploadResource {
 	}
 
 	private boolean salvarArquivo(MultipartFile file) {
-		return true;
+		/*
+		 * StringUtils é uma classe do Spring que fornece métodos para trabalhar com strings
+		 * .cleanPath limpa a string de caminho do arquivo (remove ../, ./, etc)
+		 * .getOriginalFilename() retorna o nome original do arquivo
+		 */
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+		try {
+			// Constrói o caminho do arquivo de destino concatenando o nome do arquivo ao diretório de armazenamento.
+			// Programe aqui
+
+			// Transfere o arquivo recebido (file) para o local de destino no sistema de arquivos.
+			// Programe aqui
+
+
+			Arquivo arquivo = new Arquivo();
+			arquivo.setCaminhoNoServidor(targetLocation.toString());
+			arquivoRepository.save(arquivo);
+
+			return true;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	private boolean lerArquivo(MultipartFile file) {
-		return true;
+		try {
+			// Configura a fábrica de construção de documentos XML.
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+			// Cria um construtor de documentos XML a partir da fábrica.
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+			// Faz o parse do arquivo XML, obtendo um objeto Document.
+			org.w3c.dom.Document doc = dBuilder.parse(file.getInputStream());
+
+			// Normaliza a estrutura do documento XML.
+			doc.getDocumentElement().normalize();
+
+			// Obtém uma lista de elementos "pais" do documento.
+			NodeList nodeList = doc.getElementsByTagName("pais");
+
+			// Percorre a lista de elementos "pais" no documento XML.
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				
+				// Obtém um nó da lista.
+				Node node = nodeList.item(i);
+				
+				// Verifica se o nó é um elemento XML.
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					
+					// Converte o nó para um elemento XML.
+					Element element = (Element) node;
+
+					// Obtém os valores dos elementos filhos do elemento "pais".
+					String codigo = element.getElementsByTagName("codigo").item(0).getTextContent();
+					String nome = ""; // Obtenha o elemento nome
+					String ordem = ""; // Obtenha o elemento ordem
+					String sigla2 = ""; // Obtenha o elemento sigla2
+					String sigla3 = ""; // Obtenha o elemento sigla3
+
+					// Cria um objeto Pais com os dados obtidos.
+					Pais pais = new Pais();
+					// Crie os sets de todos os atributos
+
+					// Salva no banco de dados
+					paisRepository.save(pais);
+				}
+			}
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
