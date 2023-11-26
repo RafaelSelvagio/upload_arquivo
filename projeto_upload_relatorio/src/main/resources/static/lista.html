@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Upload de Arquivo</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+	<div class="container mt-5">
+		<div class="row">
+            <div class="col-md-6">
+                <a href="index.html">&larr; Voltar</a>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="javascript: gerarRelatorio();">Gerar Relatório</a>
+            </div>
+        </div>
+		<div class="tab-content mt-2">
+			<h4>Lista de Países</h4>
+
+			<table class="table table-bordered" id="tabela_lista"></table>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Inclua o SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="js/lista.js"></script>
+</body>
+
+</html>
