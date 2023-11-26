@@ -23,18 +23,25 @@ public class RelatorioService {
 	public void exporta(HttpServletResponse response, Iterable<Pais> paises) throws IOException {
 		Document document = new Document();
 		try {
+			/*
+			 * PdfWriter.getInstance: Este método estático é usado para obter uma instância do objeto PdfWriter, que é responsável 
+			 * por escrever o conteúdo no documento PDF.
+
+			 * document: É o objeto do tipo Document que representa o documento PDF que você está criando ou manipulando. O Document 
+			 * é a estrutura básica para adicionar elementos como parágrafos, tabelas, imagens, etc., ao PDF.
+
+			 * response.getOutputStream(): Este método obtém o fluxo de saída do objeto de resposta HTTP. No contexto de uma aplicação 
+			 * web, response geralmente representa a resposta HTTP que será enviada de volta ao navegador do cliente.
+			 */
 			PdfWriter.getInstance(document, response.getOutputStream());
 			
-			// Adicione um logo tipo
-			
+			// Inicia o documento
 			document.open();
 
-			// Adiciona um título
-			Font fonteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-			fonteTitulo.setSize(18);
+			// Adicione um logo tipo
 			
 			
-			// Adicione um título ao relatório
+			// Adicione o título do relatório
 			
 			
 			// Adiciona parágrafo
